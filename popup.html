@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="loading-screen hidden" id="loading-screen">
+        <div class="dots">
+            <div class="loading" id="loading-0"></div>
+            <div class="loading" id="loading-1"></div>
+            <div class="loading" id="loading-2"></div>
+            <div class="loading" id="loading-3"></div>
+        </div>
+    </div>
+    <div class="header" id="header">
+        <div id="title"><i>GRAFFITI</i></div>
+
+        <div class="large-icon" id="hamburger">&#x2630;</div>
+        <div class="drop-menu hidden" id="drop-menu">
+            <div class="menu-button" id="feedback-menu-button">feedback</div>
+            <div class="menu-button" id="options-menu-button">options</div>
+            <div class="menu-button" id="log out-menu-button">log out</div>
+        </div>
+    </div>
+    <div id="posts-container" class="posts-container">
+        <div class="no-posts" id="no-posts"><center>- no posts yet -</center></div>
+    </div>
+    <div id="error" class="error hidden">
+        <div></div>
+        <div id="error-content"></div>
+        <div id="dismiss-error" class="dismiss">X</div>
+    </div>
+    <div id="message" class="message hidden">
+        <div></div>
+        <div id="message-content"></div>
+        <div id="dismiss-message" class="dismiss">X</div>
+    </div>
+    <div id="action-area">
+        <div id="login-area" class="login-action-area hidden">
+            <input id="login-username-box" class="text-box" type="text" placeholder="username">
+            <input id="login-pass-box" class="text-box" type="password" placeholder="password">
+            <center><div id="forgot-button" class="small-text">forgot info?</div></center>
+        </div>
+        <div id="create-post-area" class="new-post hidden">
+            <div id="tag-preview" class="tag-preview hidden">
+                <div id="tag-preview-content"></div>
+                
+            </div>
+            <div class="new-post-container">
+                <div class="new-post-inner-container">
+                    <div class="avatar" id="user-avatar">&#128100;</div>
+                    <div class="post-right">
+                        <div class="post-info">
+                            <div class="post-username" id="new-post-user"></div>
+                            <div id="tag-button" class="tag-button hidden">tag user?</div>
+                        </div>
+                            <span id="post-placeholder" class="placeholder">add your two cents (@ to tag user)</span>
+                            
+                            <div contenteditable="true" id="new-post" class="new-post-box edit-box"></div>
+                            <span id="resizer"><div class="inside-resize">|</div></span>
+                    </div>
+                </div>
+                <div class="action-button hidden" id="post-button">Post</div>
+            </div>
+        </div>
+        <div id="create-account-area" class="create-account-area hidden">
+            <div class="section-title"><center>New account:</center></div>
+            <input id="create-username-box" class="text-box" type="text" placeholder="choose username">
+            <input id="create-pass-box" class="text-box" type="password" placeholder="choose password">
+            <input id="retype-pass-box" class="text-box" type="password" placeholder="retype password">
+            <input id="email-box" class="text-box" type="email" placeholder="your email">
+            <div class="section-title"><center>Select your avatar:</center></div>
+            <center>
+                <div class="horizontal">
+                    <div id="selected-avatar" class="avatar"></div>
+                    <div class="post-username" id="username-preview"></div>
+                </div>
+                <div id="select-avatar" class="select-avatar"></div>
+            
+                <input type="checkbox" id="term-1">I certify I am at least 13 years old, I understand that content is not moderated, and I agree to all other <a href="https://www.graffiti.red/terms">terms and conditions</a>.
+            </center>
+        </div>
+        <div id="feedback-area" class="create-account-area hidden">
+            <div class="section-title"><center>Feedback:</center></div>
+            <input id="feedback-email" class="text-box" type="email" placeholder="email (optional)">
+            <textarea id="feedback" class="text-box tall" placeholder="your message"></textarea>
+        </div>
+        <div id="forgot-area" class="create-account-area hidden">
+            <div class="section-title"><center>Reset password:</center></div>
+            <div class="text-default">Enter your GRAFFITI email address. We'll send you an email 
+                with your username and a new temporary password. 
+                Note: the email may end up in your spam folder.</div>
+            <input id="recover-email" class="text-box" type="email" placeholder="email address">
+        </div>
+        <div id="options-area" class="create-account-area hidden">
+            <div class="action-button" id="exit-options-button">Exit options</div>
+            <div class="new-post-container">
+                <div class="section-title"><center>Change avatar:</center></div>
+                <center>
+                    <div class="horizontal">
+                        <div id="new-avatar" class="avatar"></div>
+                        <div class="post-username" id="username-display"></div>
+                    </div>
+                    <div id="select-new-avatar" class="select-avatar"></div>
+                </center>
+                <div class="action-button" id="change-avatar-button">Save new avatar</div>
+            </div>
+            <div class="new-post-container">
+                <div class="section-title"><center>Change password:</center></div>
+                <input id="old-pass-box" class="text-box" type="password" placeholder="old password">
+                <input id="new-pass-box" class="text-box" type="password" placeholder="new password">
+                <input id="retype-new-pass-box" class="text-box" type="password" placeholder="retype new password">
+                <div class="action-button" id="change-password-button">Save new password</div>
+            </div>
+            <div class="new-post-container">
+                <div class="section-title"><center>Delete account:</center></div>
+                <div class="text-default">Note: Deleting your account will not delete your posts and it will
+                    allow a new user to create an account with your username. To delete your account anyway,
+                    type your password and click "Delete account" below:
+                    </div>
+                <input id="delete-password" class="text-box" type="password" placeholder="password to delete">
+                <div class="action-button" id="delete-account-button">Delete account</div>
+            </div>
+        </div>
+    </div>
+    <div id="action-buttons">
+        <div class="action-button hidden" id="login-button">Log in</div>
+        <div class="action-button hidden" id="create-button">Create account</div>
+        <div class="action-button hidden" id="signup-button">Create new account</div>
+        <div class="action-button hidden" id="submit-button">Submit</div>
+        <div class="action-button hidden" id="recover-button">Send email</div>
+        <div class="action-button hidden" id="cancel-button">Cancel</div>
+    </div>
+</body>
+
+<script type="module" src="./popup.js"></script>
+</html>
