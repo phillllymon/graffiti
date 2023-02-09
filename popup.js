@@ -7,18 +7,6 @@ import { activateMenu, showLoggedInMenuOptions, hideLoggedInMenuOptions } from "
 import { setMessage, setError } from "./javascripts/util/setMessage.js";
 
 
-// TESTING ONLY
-// chrome.storage.local.get("graffitiCache", function(res){
-//     console.log(res.graffitiCache);
-//     // chrome.storage.local.remove("graffitiCache");
-    
-
-//     // chrome.storage.local.set({ "graffitiCache": [1, 2, 3] }, function(){
-//     //     setMessage("poop");
-//     // });
-// });
-// END TESTING
-
 renderPosts();
 activateMenu();
 showLoginOrNewPost();
@@ -35,7 +23,24 @@ export function showLoginOrNewPost() {
     });
 }
 
-
+chrome.action.getUserSettings().then((res) => {
+    if (!res.isOnToolbar) {
+        chrome.storage.local.get("graffitiNoPinAlert", function(res){
+            const noAlert = res.graffitiNoPinAlert;
+            if (!noAlert) {
+                document.getElementById("pin-alert").classList.remove("hidden");
+                document.getElementById("dismiss-alert").addEventListener("click", () => {
+                    document.getElementById("pin-alert").classList.add("hidden");
+                });
+                document.getElementById("kill-alert").addEventListener("click", () => {
+                    document.getElementById("pin-alert").classList.add("hidden");
+                    chrome.storage.local.set({ "graffitiNoPinAlert": true });
+                    // setMessage("feature not yet enabled");
+                });
+            }
+        });
+    }
+});
 
 // resolves to creds if user is already logged in
 export function checkForLogin() {

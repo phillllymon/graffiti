@@ -71,7 +71,7 @@ function hidePlaceholder() {
 }
 
 function validateContentLength(content) {
-    if (content.split(" ").join("").length < 4) {
+    if (content.split(" ").join("").length < 3) {
         return false;
     }
     return true;
@@ -103,6 +103,7 @@ function handleSubmit() {
                     document.getElementById("new-post").innerText = "";
                     postsContainer.prepend(newPost);
                     newPost.classList.add("grow");
+                    chrome.action.setIcon({ path: "./icons/orange.png" });
                 } else {
                     setError(res.message);
                 }

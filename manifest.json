@@ -1,15 +1,16 @@
 {
     "name": "Graffiti",
     "description": "Share your two cents on any webpage",
-    "version": "1",
+    "version": "0.2",
     "manifest_version": 3,
     "permissions": [
         "tabs",
-        "storage",
         "activeTab",
-        "scripting",
-        "cookies"
+        "storage"
     ],
+    "icons": {
+        "128": "icons/orange.png"
+    },
     "background": {
         "service_worker": "background.js"
     },

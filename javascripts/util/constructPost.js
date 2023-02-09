@@ -51,22 +51,21 @@ function formatDate(timestamp) {
     const { year, month, day, hours, minutes } = localizeTime(parseTimestamp(timestamp));
 
     const thisDate = new Date();
-    const thisYear = thisDate.getUTCFullYear();
-    const thisMonth = thisDate.getUTCMonth() + 1;
-    const thisDay = thisDate.getUTCDate();
+    const thisYear = thisDate.getFullYear();
+    const thisMonth = thisDate.getMonth() + 1;
+    const thisDay = thisDate.getDate();
+    const { hoursToShow, amOrPm } = demilitarize(hours);
+    const minutesToShow = minutes < 10 ? `0${minutes}` : minutes;
+
 
     if (thisYear === year) {
         if (thisMonth === month) {
             if (thisDay === day) {
-                const { hoursToShow, amOrPm } = demilitarize(hours);
-                return `today at ${hoursToShow}:${minutes} ${amOrPm}`;
+                return `today at ${hoursToShow}:${minutesToShow} ${amOrPm}`;
             }
         }
     }
-
-    const { hoursToShow, amOrPm } = demilitarize(hours);
-    
-    return `${month}/${day}/${year} at ${hoursToShow}:${minutes} ${amOrPm}`;
+    return `${month}/${day}/${year} at ${hoursToShow}:${minutesToShow} ${amOrPm}`;
     
 }
 

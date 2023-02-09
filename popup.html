@@ -15,10 +15,35 @@
             <div class="loading" id="loading-3"></div>
         </div>
     </div>
+
+    <div id="pin-alert" class="hidden">
+        <div class="taller"></div>
+        <div class="loading-screen"></div>
+        <div class="pin-alert">
+            <div class="alert-body">
+                <center>Make sure you pin GRAFFITI!</center> <div class="pin-arrow">&#8599;</div>
+                <img src="pin.png" class="pin-image">
+                <center>The GRAFFITI icon will turn orange when a page has comments.</center>
+            </div>
+            <div class="alert-footer">
+                <div class="link-button" id="dismiss-alert">remind me later</div>
+                <div class="link-button" id="kill-alert">don't show again</div>
+            </div>
+        </div>
+    </div>
+    
+        
+    
     <div class="header" id="header">
         <div id="title"><i>GRAFFITI</i></div>
-
-        <div class="large-icon" id="hamburger">&#x2630;</div>
+        <div class="horizontal">
+            <div class="large-icon menu-bar-item hidden" id="convos-button">
+                <img src="whiteGray.png">
+                <div class="red-dot">3</div>
+            </div>
+            <div class="large-icon menu-bar-item" id="hamburger">&#x2630;</div>
+        </div>
+        
         <div class="drop-menu hidden" id="drop-menu">
             <div class="menu-button" id="feedback-menu-button">feedback</div>
             <div class="menu-button" id="options-menu-button">options</div>
@@ -80,7 +105,7 @@
                 </div>
                 <div id="select-avatar" class="select-avatar"></div>
             
-                <input type="checkbox" id="term-1">I certify I am at least 13 years old, I understand that content is not moderated, and I agree to all other <a href="https://www.graffiti.red/terms">terms and conditions</a>.
+                <input type="checkbox" id="term-1">I certify I am at least 13 years old, I understand that content is not moderated, and I agree to all other <a href="https://www.graffiti.red/terms/" target="false">terms and conditions</a>.
             </center>
         </div>
         <div id="feedback-area" class="create-account-area hidden">
