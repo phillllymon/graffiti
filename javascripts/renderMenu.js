@@ -3,6 +3,7 @@ import { logOut } from "./api.js";
 import { renderLogin } from "./renderLogIn.js";
 import { renderFeedback } from "./renderFeedback.js";
 import { renderOptions } from "./renderOptions.js";
+import { renderConversations } from "./renderConversations.js";
 
 import { setMessage } from "./util/setMessage.js";
 
@@ -12,7 +13,7 @@ export function activateMenu() {
     activateButton("log out-menu-button");
 
     getConvosButton().addEventListener("click", () => {
-        setMessage("feature coming soon!");
+        renderConversations();
     });
 
     getHamburger().addEventListener("click", () => {
@@ -30,6 +31,11 @@ export function showLoggedInMenuOptions() {
     document.getElementById("options-menu-button").classList.remove("hidden");
     document.getElementById("log out-menu-button").classList.remove("hidden");
     getConvosButton().classList.remove("hidden");
+    const numUnreads = document.creds.numUnreads;
+    if (numUnreads > 0) {
+        document.getElementById("unreads-dot").innerText = document.creds.numUnreads;
+        document.getElementById("unreads-dot").classList.remove("hidden");
+    }
 }
 
 function activateButton(buttonId) {

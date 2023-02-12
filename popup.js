@@ -23,6 +23,7 @@ export function showLoginOrNewPost() {
     });
 }
 
+// shows popup if GRAFFITI isn't pinned on Chrome
 chrome.action.getUserSettings().then((res) => {
     if (!res.isOnToolbar) {
         chrome.storage.local.get("graffitiNoPinAlert", function(res){
@@ -35,7 +36,6 @@ chrome.action.getUserSettings().then((res) => {
                 document.getElementById("kill-alert").addEventListener("click", () => {
                     document.getElementById("pin-alert").classList.add("hidden");
                     chrome.storage.local.set({ "graffitiNoPinAlert": true });
-                    // setMessage("feature not yet enabled");
                 });
             }
         });
@@ -56,8 +56,8 @@ export function checkForLogin() {
                             if (avatar && avatar.length > 0) {
                                 checkLogin(username, token).then((res) => {
                                     if (res.answer == true) {
-                                        document.creds = { username: username, token: token, avatar: avatar };
-                                        resolve({ username: username, token: token, avatar: avatar });
+                                        document.creds = { username: username, token: token, avatar: avatar, numUnreads: res.numUnreads };
+                                        resolve({ username: username, token: token, avatar: avatar, numUnreads: res.numUnreads });
                                     } else {
                                         resolve(false);
                                     }

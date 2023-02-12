@@ -40,7 +40,7 @@ function activateLoginButton() {
                 showLoggedInMenuOptions();
                 //clear password field for security
                 document.getElementById("login-pass-box").value = "";
-                setLoginCreds(username, res.token, res.avatar).then(() => {
+                setLoginCreds(username, res.token, res.avatar, res.numUnreads).then(() => {
                     renderCreatePost();
                 });
             } else {

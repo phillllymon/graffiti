@@ -4,6 +4,8 @@ import { setMessage } from "./util/setMessage.js";
 
 export function enableTagger() {
     const postBox = document.getElementById("new-post");
+    let possiblePresents = collectNamesPresent();
+
     postBox.addEventListener("input", () => {
         const entireContents = postBox.innerHTML;
         
@@ -15,6 +17,15 @@ export function enableTagger() {
                 disableTagSelection();
                 const possibleName = lastWord.slice(1);
                 setTagPreview(possibleName);
+
+                //narrow down possiblePresents
+                possiblePresents = narrowDown(possibleName, possiblePresents);
+                if (possiblePresents.length === 1) {
+                    //might not have typed entire name - we want to show whole name in preview but keep type space unchanged
+                    //if user keeps typing, disableTagSelection() and setTagPreview(possibleName) above should undo this (unless they keep typing the name)
+                    setTagPreview(possiblePresents[0]);
+                    enableTagSelection();
+                }
 
                 //don't query on every keystroke; wait for a pause
                 setTimeout(() => {
@@ -31,17 +42,50 @@ export function enableTagger() {
             } else {
                 disableTagSelection();
                 clearTagPreview();
+                possiblePresents = collectNamesPresent();
             }
         }
         
     });
 }
 
+function narrowDown(matcher, pool) {
+    const answer = [];
+    pool.forEach((possible) => {
+        if (possible.startsWith(matcher)) {
+            answer.push(possible);
+        }
+    });
+    return answer;
+}
+
+function collectNamesPresent() {
+    const nameClasses = [
+        "tag",
+        "post-username"
+    ];
+    const presentNames = [];
+    nameClasses.forEach((nameClass) => {
+        const eles = document.getElementsByClassName(nameClass);
+        for (let i = 0; i < eles.length; i++) {
+            const presentName = eles[i].innerText;
+            if (!presentNames.includes(presentName)) {
+                presentNames.push(presentName);
+            }
+        }
+    });
+    return presentNames;
+}
+
 function selectName() {
     const postBox = document.getElementById("new-post");
     const entireContents = postBox.innerHTML;
     const words = entireContents.split(" ");
-    const name = words[words.length - 1].slice(1);
+
+    // const name = words[words.length - 1].slice(1);
+
+    const name = document.getElementById("tag-preview-content").innerText;
+
     const tagSpelledOut = ` <span class="tag">${name}</span>&nbsp;&nbsp;`;
     postBox.innerHTML = words.slice(0, words.length - 1).join(" ") + tagSpelledOut;
 

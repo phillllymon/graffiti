@@ -39,7 +39,7 @@
         <div class="horizontal">
             <div class="large-icon menu-bar-item hidden" id="convos-button">
                 <img src="whiteGray.png">
-                <div class="red-dot">3</div>
+                <div class="red-dot hidden" id="unreads-dot"></div>
             </div>
             <div class="large-icon menu-bar-item" id="hamburger">&#x2630;</div>
         </div>
@@ -121,7 +121,7 @@
             <input id="recover-email" class="text-box" type="email" placeholder="email address">
         </div>
         <div id="options-area" class="create-account-area hidden">
-            <div class="action-button" id="exit-options-button">Exit options</div>
+            <div class="action-button" id="exit-options-button">&#x21e6; Exit</div>
             <div class="new-post-container">
                 <div class="section-title"><center>Change avatar:</center></div>
                 <center>
@@ -148,6 +148,11 @@
                     </div>
                 <input id="delete-password" class="text-box" type="password" placeholder="password to delete">
                 <div class="action-button" id="delete-account-button">Delete account</div>
+            </div>
+        </div>
+        <div id="history-area" class="create-account-area hidden">
+            <div class="action-button" id="exit-history-button">&#x21e6; Back</div>
+            <div class="convo-links-section" id="convos">
             </div>
         </div>
     </div>

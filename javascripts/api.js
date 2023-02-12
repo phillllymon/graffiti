@@ -1,5 +1,14 @@
 import { startLoading, stopLoading } from "./util/startStopLoading.js";
 
+import { setMessage } from "./util/setMessage.js";
+
+export function getConversations(username, token) {
+    return makeCallToAPI("getConversations", {
+        username: username,
+        token: token
+    }, false);
+}
+
 export function notifyTaggedUsers(url, author, tags) {
     return makeCallToAPI("notifyTaggedUsers", {
         url: url,
@@ -84,7 +93,37 @@ export function checkForPosts(url) {
 }
 
 export function getPosts(url, limit=1000, skip=0) {
-    return makeCallToAPI("getPosts", { url: url, limit: limit, skip: skip }, false);
+    return new Promise((resolve) => {
+        chrome.storage.local.get("graffitiToken", function(res){
+            const token = res.graffitiToken;
+            if (token && token.length > 0) {
+                chrome.storage.local.get("graffitiUsername", function(res){
+                    const username = res.graffitiUsername;
+                    if (username && username.length > 0) {
+                        makeCallToAPI("getPosts", {
+                            url: url,
+                            limit: limit,
+                            skip: skip,
+                            username: username,
+                            token: token
+                        }, false).then((res) => {
+                            resolve(res);
+                        });             
+                    } else {
+                        makeCallToAPI("getPosts", { url: url, limit: limit, skip: skip }, false).then((res) => {
+                            resolve(res);
+                        });
+                    }
+                });
+            } else {
+                makeCallToAPI("getPosts", { url: url, limit: limit, skip: skip }, false).then((res) => {
+                    resolve(res);
+                });
+            }
+        });
+    });
+    
+    // return makeCallToAPI("getPosts", { url: url, limit: limit, skip: skip }, false);
 }
 
 function makeCallToAPI(action, inputs, showLoading = true) {

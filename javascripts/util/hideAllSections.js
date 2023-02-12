@@ -7,6 +7,7 @@ export function hideAllSections() {
     hide("feedback-area");
     hide("forgot-area");
     hide("options-area");
+    hide("history-area");
     
     
     hide("login-button");
