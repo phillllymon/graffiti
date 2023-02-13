@@ -12,7 +12,7 @@ body {
 .pin-alert {
     position: fixed;
     left: 100vw;
-    top: 0;
+    top: 10px;
     transform: translate(-103%, 0);
     width: 94vw;
     display: flex;
@@ -23,8 +23,11 @@ body {
     z-index: 2;
     box-shadow: 0 2px 12px -5px gray;
     border-radius: 2px;
-    border: 1px solid red;
+    border: 1px solid orange;
+    border-radius: 3px;
     opacity: 1;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .alert-header {
@@ -37,7 +40,7 @@ body {
 
 .alert-body {
     color: gray;
-    font-size: 200%;
+    font-size: 160%;
     padding: 5px;
 }
 
@@ -60,6 +63,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding-left: 10px;
 }
 
 .link-button {
@@ -166,6 +170,7 @@ body {
     color: darkgray;
     font-size: 13px;
     margin-left: 3px;
+    opacity: 1;
 }
 
 .small-text:hover {

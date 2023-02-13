@@ -2,11 +2,7 @@ import { hideAllSections } from "./util/hideAllSections.js";
 import { show, hide } from "./util/showHide.js";
 import { makeElement } from "./util/makeElement.js";
 import { showLoginOrNewPost } from "../popup.js";
-import { avatars } from "./renderCreateAccount.js";
-import { getConversations } from "./api.js";
-import { setLoginCreds } from "./credentials.js";
-import { renderLogin } from "./renderLogIn.js";
-import { hideLoggedInMenuOptions } from "./renderMenu.js";
+import { getConversations, unFollow, follow } from "./api.js";
 
 import { setMessage, setError, clearError } from "./util/setMessage.js";
 
@@ -63,12 +59,44 @@ function buildConvoLink(convo, info) {
     const unfollowButton = makeElement("small-text");
     unfollowButton.innerText = "unfollow";
 
+    const followButton = makeElement("small-text");
+    followButton.innerText = "undo";
+    followButton.classList.add("hidden");
+
+
     const linkContainer = makeElement("convo-link-container");
     linkContainer.appendChild(link);
     linkContainer.appendChild(unfollowButton);
+    linkContainer.appendChild(followButton);
 
     unfollowButton.addEventListener("click", () => {
-        setMessage("feature coming soon");
+        const username = document.creds.username;
+        const token = document.creds.token;
+        unFollow(username, token, url).then((res) => {
+            if (res.status === "success") {
+                linkContainer.classList.add("faint");
+                unfollowButton.classList.add("hidden");
+                followButton.classList.remove("hidden");
+            } else {
+                console.log(res.message);
+                setError(cleanErrorMessage(res.message));
+            }
+        });
+    });
+
+    followButton.addEventListener("click", () => {
+        const username = document.creds.username;
+        const token = document.creds.token;
+        follow(username, token, url).then((res) => {
+            if (res.status === "success") {
+                linkContainer.classList.remove("faint");
+                unfollowButton.classList.remove("hidden");
+                followButton.classList.add("hidden");
+            } else {
+                console.log(res.message);
+                setError(cleanErrorMessage(res.message));
+            }
+        });
     });
 
     return linkContainer;
@@ -95,4 +123,12 @@ function activateBackButton() {
         show("posts-container");
         showLoginOrNewPost();
     });
+}
+
+function cleanErrorMessage(message) {
+    if (message.startsWith("ERROR ")) {
+        return message.slice(6);
+    } else {
+        return message;
+    }
 }

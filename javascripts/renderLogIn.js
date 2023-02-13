@@ -35,13 +35,16 @@ function activateLoginButton() {
         const username = document.getElementById("login-username-box").value;
         const pass = document.getElementById("login-pass-box").value;
         logIn(username, pass).then((res) => {
+            
             if (res.status === "success") {
                 clearError();
-                showLoggedInMenuOptions();
+                
                 //clear password field for security
                 document.getElementById("login-pass-box").value = "";
                 setLoginCreds(username, res.token, res.avatar, res.numUnreads).then(() => {
+                    
                     renderCreatePost();
+                    showLoggedInMenuOptions();
                 });
             } else {
                 setError(cleanErrorMessage(res.message));

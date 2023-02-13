@@ -2,11 +2,27 @@ import { startLoading, stopLoading } from "./util/startStopLoading.js";
 
 import { setMessage } from "./util/setMessage.js";
 
+export function follow(username, token, url) {
+    return makeCallToAPI("follow", {
+        username: username,
+        token: token,
+        url: url
+    });
+}
+
+export function unFollow(username, token, url) {
+    return makeCallToAPI("unFollow", {
+        username: username,
+        token: token,
+        url: url
+    });
+}
+
 export function getConversations(username, token) {
     return makeCallToAPI("getConversations", {
         username: username,
         token: token
-    }, false);
+    });
 }
 
 export function notifyTaggedUsers(url, author, tags) {
