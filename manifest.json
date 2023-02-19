@@ -1,6 +1,6 @@
 {
-    "name": "Graffiti",
-    "description": "Share your two cents on any webpage",
+    "name": "GRAFFITI",
+    "description": "Adds public comment section to every webpage",
     "version": "0.3",
     "manifest_version": 3,
     "permissions": [

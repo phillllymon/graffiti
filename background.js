@@ -1,5 +1,8 @@
+const grayIconPath = "./icons/grayNewer.png";
+const orangeIconPath = "./icons/orangeNewer.png";
+
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.action.setIcon({ path: "./icons/gray.png" });
+    chrome.action.setIcon({ path: grayIconPath });
 });
 
 chrome.tabs.onUpdated.addListener(() => {
@@ -20,9 +23,9 @@ function handleUrlChange() {
         const url = tabs[0].url;
         checkForPosts(url).then((urlHasPosts) => {
             if (urlHasPosts) {
-                chrome.action.setIcon({ path: "./icons/orange.png" });
+                chrome.action.setIcon({ path: orangeIconPath });
             } else {
-                chrome.action.setIcon({ path: "./icons/gray.png" });
+                chrome.action.setIcon({ path: grayIconPath });
             }
         });
     });

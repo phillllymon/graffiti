@@ -41,7 +41,7 @@ function activateLoginButton() {
                 
                 //clear password field for security
                 document.getElementById("login-pass-box").value = "";
-                setLoginCreds(username, res.token, res.avatar, res.numUnreads).then(() => {
+                setLoginCreds(res.username, res.token, res.avatar, res.numUnreads).then(() => {
                     
                     renderCreatePost();
                     showLoggedInMenuOptions();

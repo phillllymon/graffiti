@@ -20,21 +20,26 @@ function populateConversations() {
     const username = document.creds.username;
     const token = document.creds.token;
     getConversations(username, token).then((res) => {
-        const info = res.info;
-        res.conversations.forEach((convo) => {
-            convoSection.prepend(buildConvoLink(convo, info));
+        console.log(res.conversations);
+        console.log(res.info);
+        const convos = res.conversations.sort((a, b) => {
+            return res.info[a[0]].modified > res.info[b[0]].modified ? 1 : -1;
+        });
+        convos.forEach((convo) => {
+            convoSection.prepend(buildConvoLink(convo, res.info));
         });
 
-        if (res.conversations.length == 0) {
+        if (convos.length == 0) {
             convoSection.innerHTML = '<div class="no-posts"><center>- no conversations -</center></div>';
         }
-        updateUnreadsDot(res.conversations);
+        updateUnreadsDot(convos);
     });
 }
 
 function buildConvoLink(convo, info) {
     
     const url = convo[0];
+
     const pretty = info[url].pretty;
     
     const link = makeElement("convo-link", "a");

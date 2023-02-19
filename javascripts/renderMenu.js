@@ -13,7 +13,9 @@ export function activateMenu() {
     activateButton("log out-menu-button");
 
     getConvosButton().addEventListener("click", () => {
-        renderConversations();
+        if (document.getElementById("history-area").classList.contains("hidden")) {
+            renderConversations();
+        }
     });
 
     getHamburger().addEventListener("click", () => {
@@ -39,7 +41,6 @@ export function showLoggedInMenuOptions() {
 }
 
 function activateButton(buttonId) {
-    // document.getElementById(buttonId).addEventListener("click", getActionForButton(buttonId));
     document.getElementById(buttonId).addEventListener("click", () => {
         getActionForButton(buttonId)();
         toggleMenu();
