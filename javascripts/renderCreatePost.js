@@ -3,6 +3,7 @@ import { show } from "./util/showHide.js";
 import { createPost, notifyTaggedUsers } from "./api.js";
 import { constructPost } from "./util/constructPost.js";
 import { enableTagger } from "./tagger.js";
+import { removeUnrecognizedHTML } from "./util/removeUnrecognizedHTML.js";
 
 import { setMessage, setError } from "./util/setMessage.js";
 
@@ -19,9 +20,20 @@ export function renderCreatePost() {
     showPlaceholder();
     enablePlaceholderToggle();
     enableEnterToPost();
+    enablePastePlainText();
     enableTabToPostButton();
     enableTagger();
     enableResizing();
+}
+
+function enablePastePlainText() {
+    const inputBox = document.getElementById("new-post");
+    inputBox.addEventListener("paste", () => {
+        
+        setTimeout(() => {
+            inputBox.innerHTML = removeUnrecognizedHTML(inputBox.innerHTML);
+        }, 0);
+    });
 }
 
 function enableEnterToPost() {
