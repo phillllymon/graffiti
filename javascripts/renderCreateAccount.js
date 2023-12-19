@@ -4,6 +4,7 @@ import { renderLogin } from "./renderLogIn.js";
 import { makeElement } from "./util/makeElement.js";
 import { renderCreatePost } from "./renderCreatePost.js";
 import { showLoggedInMenuOptions } from "./renderMenu.js";
+import { renderConfirmEmail } from "./renderConfirmEmail.js";
 import { createUser } from "./api.js";
 import { startLoading, stopLoading } from "./util/startStopLoading.js";
 import { setLoginCreds } from "./credentials.js";
@@ -44,6 +45,8 @@ export const avatars = [
 let selectedAvatar = avatars[avatars.length - 1];
 
 export function renderCreateAccount() {
+    portUsernamePassword();
+
     hideAllSections();
     hide("posts-container");
     show("create-account-area");
@@ -56,6 +59,17 @@ export function renderCreateAccount() {
     activateUsernamePreview();
     activateCancelButton();
     activateCreateButton();
+}
+
+function portUsernamePassword() {
+    const username = document.getElementById("login-username-box").value;
+    const password = document.getElementById("login-pass-box").value;
+    if (username.length > 0) {
+        document.getElementById("create-username-box").value = username;
+    }
+    if (password.length > 0) {
+        document.getElementById("create-pass-box").value = password;
+    }
 }
 
 function activateUsernamePreview() {
@@ -183,12 +197,7 @@ function activateCreateButton() {
                 stopLoading(loading);
                 if (res.status === "success") {
                     clearError();
-                    setMessage("welcome!");
-                    setLoginCreds(username, res.token, avatar).then(() => {
-                        showLoggedInMenuOptions();
-                        show("posts-container");
-                        renderCreatePost();
-                    });
+                    renderConfirmEmail(username);
                 } else {
                     setError(cleanErrorMessage(res.message));
                 }

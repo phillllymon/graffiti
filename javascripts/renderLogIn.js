@@ -5,6 +5,7 @@ import { setLoginCreds } from "./credentials.js";
 import { renderCreatePost } from "./renderCreatePost.js";
 import { renderCreateAccount } from "./renderCreateAccount.js";
 import { renderResetPassword } from "./renderResetPassword.js";
+import { renderConfirmEmail } from "./renderConfirmEmail.js";
 import { showLoggedInMenuOptions } from "./renderMenu.js";
 
 import { setMessage, setError, clearError } from "./util/setMessage.js";
@@ -47,7 +48,12 @@ function activateLoginButton() {
                     showLoggedInMenuOptions();
                 });
             } else {
-                setError(cleanErrorMessage(res.message));
+                const friendlyMessage = cleanErrorMessage(res.message);
+                if (friendlyMessage === "account not confirmed") {
+                    renderConfirmEmail(username);
+                } else {
+                    setError(cleanErrorMessage(res.message));
+                }
             }
         });
     });

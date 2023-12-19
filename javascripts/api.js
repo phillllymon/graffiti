@@ -2,6 +2,19 @@ import { startLoading, stopLoading } from "./util/startStopLoading.js";
 
 import { setMessage } from "./util/setMessage.js";
 
+export function confirmEmail(username, confirmCode) {
+    return makeCallToAPI("confirmEmail", {
+        username: username,
+        confirmCode: confirmCode
+    });
+}
+
+export function resendEmail(username) {
+    return makeCallToAPI("resendEmail", {
+        username: username
+    });
+}
+
 export function follow(username, token, url) {
     return makeCallToAPI("follow", {
         username: username,
@@ -83,12 +96,13 @@ export function createUser(username, avatar, pass, email) {
     });
 }
 
-export function createPost(username, token, url, content) {
+export function createPost(username, token, url, content, tags) {
     return makeCallToAPI("createPost", {
         username: username,
         token: token,
         url: url,
-        content: content
+        content: content,
+        tags: tags
     });
 }
 

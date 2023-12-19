@@ -24,7 +24,7 @@ export function enableTagger() {
                     //might not have typed entire name - we want to show whole name in preview but keep type space unchanged
                     //if user keeps typing, disableTagSelection() and setTagPreview(possibleName) above should undo this (unless they keep typing the name)
                     setTagPreview(possiblePresents[0]);
-                    enableTagSelection();
+                    enableTagSelection(possiblePresents[0]);
                 }
 
                 //don't query on every keystroke; wait for a pause
@@ -33,7 +33,7 @@ export function enableTagger() {
                         doesUserExist(possibleName).then((res) => {
                             if (res.status === "success") {
                                 if (res.exists && nameIsStillValue(possibleName)) {
-                                    enableTagSelection();
+                                    enableTagSelection(res.username);
                                 }
                             }
                         });
@@ -77,46 +77,46 @@ function collectNamesPresent() {
     return presentNames;
 }
 
-function selectName() {
+function selectName(name) {
     const postBox = document.getElementById("new-post");
     const entireContents = postBox.innerHTML;
     const words = entireContents.split(" ");
 
     // const name = words[words.length - 1].slice(1);
 
-    const name = document.getElementById("tag-preview-content").innerText;
+    // const name = document.getElementById("tag-preview-content").innerText;
 
     const tagSpelledOut = ` <span class="tag">${name}</span>&nbsp;&nbsp;`;
+    // const tagSpelledOut = ` <span class="tag">ffff</span>&nbsp;&nbsp;`;
     postBox.innerHTML = words.slice(0, words.length - 1).join(" ") + tagSpelledOut;
 
     disableTagSelection();
     clearTagPreview();
 }
 
-function enableTagSelection() {
+function enableTagSelection(name) { // passing name here because the search isn't case sensitive
     const previewBox = document.getElementById("tag-preview");
     previewBox.classList.remove("faint");
-    // TODO: also trigger this by pressing ENTER
     previewBox.addEventListener("click", () => {
-        selectName();
+        selectName(name);
     });
     const tagButton = document.getElementById("tag-button");
     tagButton.classList.remove("hidden");
     tagButton.tabIndex = 0;
     tagButton.focus();
     tagButton.addEventListener("click", () => {
-        selectName();
+        selectName(name);
     });
     tagButton.addEventListener("keydown", (e) => {
         e.preventDefault();
         const inputBox = document.getElementById("new-post");
         if (e.key === "Enter") {
-            selectName();
+            selectName(name);
             inputBox.focus();
             setCursorToEndOfInput();
         }
         if (e.code === "Space") {
-            selectName();
+            selectName(name);
             inputBox.focus();
             setCursorToEndOfInput();
         }

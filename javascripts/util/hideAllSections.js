@@ -8,6 +8,7 @@ export function hideAllSections() {
     hide("forgot-area");
     hide("options-area");
     hide("history-area");
+    hide("confirm-area");
     
     
     hide("login-button");
@@ -16,5 +17,6 @@ export function hideAllSections() {
     hide("post-button");
     hide("recover-button");
     hide("submit-button");
+    hide("confirm-button");
     hide("cancel-button");
 }

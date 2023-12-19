@@ -1,5 +1,5 @@
-const grayIconPath = "./icons/grayNewer.png";
-const orangeIconPath = "./icons/orangeNewer.png";
+const grayIconPath = "./icons/grayG.png";
+const orangeIconPath = "./icons/orangeG.png";
 
 chrome.runtime.onInstalled.addListener(() => {
     chrome.action.setIcon({ path: grayIconPath });

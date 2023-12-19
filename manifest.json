@@ -1,7 +1,7 @@
 {
     "name": "GRAFFITI",
     "description": "Adds public comment section to every webpage",
-    "version": "0.3",
+    "version": "0.4",
     "manifest_version": 3,
     "permissions": [
         "tabs",

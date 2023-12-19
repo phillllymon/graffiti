@@ -98,7 +98,8 @@ function handleSubmit() {
         if (!validateContentLength(content)) {
             setError("Cannot submit empty post!");
         } else {
-            createPost(username, token, url, content).then((res) => {
+            const tags = parseContentIntoTags(content);
+            createPost(username, token, url, content, JSON.stringify(tags)).then((res) => {
                 if (res.status == "success") {
                     const avatars = {};
                     avatars[document.creds.username] = document.creds.avatar ? document.creds.avatar : "&#128100;";
@@ -111,7 +112,7 @@ function handleSubmit() {
                     } else {
                         document.numPosts = document.numPosts + 1;
                     }
-                    notifyTaggedUsersIfNecessary(content, username, url);
+                    // notifyTaggedUsersIfNecessary(content, username, url);
                     document.getElementById("new-post").innerText = "";
                     postsContainer.prepend(newPost);
                     newPost.classList.add("grow");
@@ -122,13 +123,6 @@ function handleSubmit() {
             });
         }
     });
-}
-
-function notifyTaggedUsersIfNecessary(content, username, url) {
-    const tags = parseContentIntoTags(content);
-    if (tags.length > 0) {
-        notifyTaggedUsers(url, username, JSON.stringify(tags));
-    }
 }
 
 function parseContentIntoTags(content) {
